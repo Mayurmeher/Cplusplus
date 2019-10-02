@@ -1,0 +1,197 @@
+//1) class Hour
+//{
+//	private:
+//		int hr;
+//	public:
+//		parameterized constructor
+//		disp method
+//}
+//class Minute
+//{
+//	private:
+//		int mnt;
+//	public:
+//		parameterized constructor
+//		disp method
+//}
+//
+//write a program to convert minutes to hours.
+//(Use operator= for conversion.)
+//
+
+
+#include<iostream>
+using namespace std;
+class Minute;
+class Hour
+{
+private:
+	float hr;
+public:
+	Hour()
+	{
+		hr=0;
+	}
+	Hour(float k)
+	{
+		this->hr=k;
+	}
+
+	int gethr()
+	{
+		return hr;
+	}
+	void disp()
+	{
+		cout<<"Hour"<<" "<<hr<<endl;
+	}
+	void operator=(Minute&);
+};
+
+class Minute
+{
+private:
+	int mnt;
+public:
+	Minute()
+	{
+		mnt=0;
+	}
+	Minute(int a)
+	{
+		this->mnt=a;
+	}
+	int getmnt()
+	{
+		return mnt;
+	}
+	void disp()
+	{
+		cout<<"Minute"<<" "<<mnt<<endl;
+	}
+};
+
+void Hour::operator=(Minute &ref)
+{
+	this->hr=(float)ref.getmnt()/60;
+}
+
+int main()
+{
+	Hour h(10);
+	Minute m(105);
+	h.disp();
+	m.disp();
+	h=m;
+	h.disp();
+
+}
+========================================================================================================================================================================
+//2)write a number class with
+//int num;
+//void disp(){}
+//
+//u should be able to do following
+//
+//number n1(20);
+//int k=-n1;
+//
+//n1+=5;
+//n1.disp()
+//
+//number n2(35);
+//if(n1!=n2)
+//{
+//	some message
+//}
+//
+//number n3(12);
+//
+//if(n3 < n1)
+//{
+//	some message
+//}
+//
+//number n4;
+//
+//n4=n2*n3;
+//
+
+#include<iostream>
+using namespace std;
+class Number
+{
+private:
+	int num;
+public:
+	Number()
+	{num=0;}
+
+	Number(int k)
+	{
+		this->num=k;
+	}
+	operator int()
+	{
+		return (num);
+	}
+	Number& operator +=(int a)
+	{
+		num+=a;
+		return *this;
+	}
+	bool operator!=(Number ref)
+	{
+		return num!=ref.num;
+
+	}
+	bool operator<(Number ref1)
+	{
+		return(num<ref1.num);
+	}
+	Number operator*(Number &ref2)
+	{
+		return Number(num*ref2.num);
+		
+	}
+
+	void disp()
+	{
+		cout<<num<<endl;
+	}
+
+};
+
+int main()
+{
+	Number n1(20);
+	n1.disp();
+	int k = -n1;
+	cout<<k<<endl;
+	///n1.disp();
+	n1+=5;
+	n1.disp();
+	Number n2(35);
+	if(n1!=n2)
+	{
+		cout<<"Not equal"<<endl;
+	}
+	else {
+		cout<<"Equal"<<endl;
+	}
+	Number n3(50);
+	if (n3<n2)
+	{
+		cout<<"n2 is greater"<<endl;
+	}
+	else
+	{
+		cout<<"n3 is greater"<<endl;
+	}
+	Number n4;
+	n4=n2*n3;
+	n4.disp();
+
+}
+
+

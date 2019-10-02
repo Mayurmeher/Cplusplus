@@ -1,0 +1,179 @@
+//1) class Number
+//   {
+//       int num;
+//   }
+//In the main function,
+//Number n1(8),n2(4),n3(20),n4(6),n5;
+//n5=n1-n2*n3/n4;
+  
+#include<iostream>
+using namespace std;
+class Number
+{
+	int num;
+public:
+	Number()
+	{
+		num=0;
+	}
+	Number(int k)
+	{
+		this->num=k;
+	}
+	void disp()
+	{
+		cout<<endl<<num<<endl;
+	}
+	
+	Number operator-(Number &ref)
+	{
+		return Number(num-ref.num);
+	}
+	Number operator*(Number &ref1)
+	{
+		return Number(num*ref1.num);
+	}
+	Number operator/(Number &ref2)
+	{
+		return Number(num/ref2.num);
+	}
+
+};
+
+int main()
+{
+	Number n1(8),n2(4),n3(20),n4(6),n5;
+	n5=n1-n2*n3/n4;
+	n5.disp();
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//2) class sample
+//   {
+//	private:
+//		char ch;
+//	public:
+//		sample(char ch)
+//		{
+//			this->ch=ch;
+//		}
+//  };
+//
+//given above class.
+//
+//write a global function "display" which will access "ch" directly and display it.
+//call this function from main function.
+//
+//
+
+
+#include<iostream>
+using namespace std;
+class Sample
+{
+private:
+	char *name;
+public:
+	Sample(char *ch)
+	{
+		this->name=new char[strlen(ch)+1];
+		strcpy(name,ch);
+	}
+		
+	friend void disp(Sample&);	
+};
+void disp(Sample& ref)
+{
+	cout<<ref.name<<endl;
+}
+int main()
+{
+	Sample s("Mayur");
+	disp(s);
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/write a global function "check" which will take 2 modules 
+//(i.e. Module1 and Module2 ) and check whether Modules are same or not.
+//call this "check" function from main function.	
+
+#include<iostream>
+using namespace std;
+class Module2;
+class Module1
+{
+private:
+	int duration;
+public:
+	Module1()
+	{}
+	Module1(int k)
+	{
+		this->duration=k;
+	}
+	friend bool Check(Module1&ref1,Module2&ref2);
+};
+
+class Module2
+{
+private:
+	int duration;
+public:
+	Module2()
+	{}
+	Module2(int k)
+	{
+		this->duration=k;
+	}
+	friend bool Check(Module1&ref1,Module2&ref2);
+};
+
+bool Check(Module1&ref1,Module2&ref2)
+{
+	if(ref1.duration==ref2.duration)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+int main()
+{
+	Module1 m1(100);
+	Module2 m2(200);
+	cout<<Check(m1,m2)<<endl;
+
+}
+
+================================================================================================================
+//5) Define a class with constructor and  member function
+//
+//	create object, call member function
+//	now create a reference to that object, and using that reference try to call member function
+//
+#include<iostream>
+using namespace std;
+class Demo
+{
+	int num;
+public:
+	Demo ()
+	{
+	}
+	Demo(int k)
+	{
+		this->num=k;
+	}
+	void disp()
+	{
+		cout<<num<<endl;
+	}
+};
+
+int main()
+{
+	Demo d(10);
+	d.disp();
+	Demo &ref=d;
+	ref.disp();
+	
+}
