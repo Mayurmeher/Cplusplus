@@ -1,0 +1,220 @@
+//1) create a class with constructors and destructors.
+//create array of instances and observe how program behaves.
+//
+#include<iostream>
+using namespace std;
+class Myclass
+{
+	private:
+		int num;
+		char ch;
+	public:
+		Myclass()
+		{
+			cout<<"inside default constructor"<<endl;
+		}
+		Myclass(int k)
+		{
+			num=k;
+			cout<<"inside parameterized constructor"<<endl;
+		}
+		void setNum(int k)
+		{
+			num=k;
+		}
+		int getNum()
+		{
+			return num;
+		}
+		void setChar(char ch)
+		{
+			this->ch=ch;
+		}
+		char getChar()
+		{
+			return ch;
+		}
+		~Myclass()
+		{
+			cout<<"inside destructor"<<endl;
+		}
+
+		
+};
+int main()
+{
+	Myclass m[3];
+	int num;
+	char ch;
+	cout<<"Enter number of values"<<endl;
+	for(int i=0;i<3;i++)
+	{
+		cin>>num;
+		m[i].setNum(num);
+	}
+	cout<<"Enter charcs"<<endl;
+
+	for(int i=0;i<3;i++)
+	{
+		cin>>ch;
+		m[i].setChar(ch);
+	}
+	for(int i=0;i<3;i++)
+	{
+	cout<<m[i].getNum()<<" "<<m[i].getChar()<<endl;
+	}
+}
+===========================================================================================================
+//2) create a class with constructors and destructor.
+//create 2 instances on stack and 1 instance on heap. observe the invocation of constructors and destructors.
+#include<iostream>
+using namespace std;
+class Demo
+{
+private:
+	int num;
+	char *ch;
+public:
+	Demo()
+	{
+		cout<<"def constructor"<<endl;
+	}
+	Demo(int a,char* b)
+	{
+		this->num=a;
+		this->ch=b;
+		cout<<"in para"<<" "<<num<<" "<<ch<<endl;
+	}
+	~Demo()
+	{
+		cout<<"destructor"<<endl;
+	}
+};
+
+int main()
+{
+	Demo d;
+	Demo d1(1,"bala");
+	Demo *d2 = new Demo(10,"lala");
+	delete d2;
+}
+
+=============================================================================================================
+
+//3)create a class "MyClass1"
+//with members and member function "disp1().
+//create another class "MyClass2"
+//with members and member function "disp2().
+//now try to invoke disp1() from disp2()
+//in the main() function, create instances of both the classes and invoke their member functions.
+
+#include<iostream>
+using namespace std;
+class Myclass1
+{
+private: int num;
+public:
+	Myclass1()
+	{
+	}
+	Myclass1(int a)
+	{
+		num=a;
+	}
+	void disp1()
+	{
+		cout<<"inside disp1"<<" "<<num<<endl;
+	}
+};
+
+class Myclass2
+{
+private: int num1;
+public:
+	Myclass2()
+	{}
+	Myclass2(int k)
+	{
+		num1=k;
+	}
+	void disp2(Myclass1 &ref)
+	{
+		ref.disp1();
+		cout<<"inside disp2"<<" "<<num1<<endl;
+
+	}
+};
+
+int main()
+{
+	Myclass1 m1(100);
+	Myclass2 m2(200);
+	m1.disp1();
+	m2.disp2(m1);
+}
+
+==========================================================================
+//5) create a class, define different types of constructors. 
+//in main create n number of objects.
+//	At the end display how many constructors are created for a class.
+#include<iostream>
+using namespace std;
+class Myclass
+{
+private:
+	int num;
+public: 
+	static int cnt;
+	Myclass()
+	{
+		cout<<"inside def const"<<endl;
+		cnt++;
+	}
+	Myclass(int num)
+	{
+		this->num=num;
+		cout<<"Iniside param const"<<endl;
+		cnt++;
+	}
+	Myclass(Myclass &ref)
+	{
+		num=ref.num;
+		cout<<"Inside copy const"<<endl;
+	    cnt++;
+	}
+	void setNum(int num)
+		{	
+			this->num=num;
+		}
+		int getNum()
+		{
+			return num;
+		}
+		static int getCnt()
+		{
+			return cnt;
+
+		}
+		~Myclass()
+		{
+			cout<<"destructor"<<endl;
+			cnt--;
+		}
+};
+
+int Myclass::cnt=0;
+int main()
+{
+	Myclass m1;
+	Myclass m2(100);
+	Myclass m3=m1;
+	Myclass *m4=new Myclass;
+	cout<<Myclass::getCnt()<<endl;
+	Myclass();
+	cout<<Myclass::getCnt()<<endl;
+	new Myclass(300); 
+	cout<<Myclass::getCnt()<<endl;
+	delete m4;
+	cout<<Myclass::getCnt()<<endl;
+}
+========================================================================
